@@ -1,0 +1,46 @@
+version: "3.7"
+services:
+  db:
+    image: postgres:12
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: school
+      POSTGRES_PASSWORD: school
+    volumes:
+      - ../../data/postgres:/var/lib/postgresql/data
+      - ../../data/dump:/db-dump
+    ports:
+      - 5432:5432
+    networks:
+      - docker-practice-net
+
+  redis:
+    image: redis:6
+    ports:
+      - 6379:6379
+    networks:
+      - docker-practice-net
+
+  app:
+    build:
+      context: ../../
+      dockerfile: ./opt-tools/docker/images/app/Dockerfile
+    working_dir: /app
+    command:  >
+      sh -c "
+        while ! nc -z db 5432;
+        do
+          sleep 1;
+        done;
+        mvn spring-boot:start;
+      "
+    volumes:
+      - ../../:/app
+    ports:
+      - 8888:8080
+    networks:
+      - docker-practice-net
+
+networks:
+  docker-practice-net:
