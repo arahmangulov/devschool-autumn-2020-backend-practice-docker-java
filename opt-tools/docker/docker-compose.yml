@@ -40,8 +40,7 @@ services:
     depends_on:
       - postgres_db
       - redis
-    environment:
-      - APP_PATH=/home/vadim/Docker/docker-practice-backend-java
+
       
 networks:
   docker-practice-net:
