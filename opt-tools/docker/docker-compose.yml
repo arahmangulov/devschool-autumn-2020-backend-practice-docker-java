@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+
+  postgres_db:
+    image: postgres
+    container_name: posgres_db
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres    
+      - POSTGRES_PASSWORD=school
+      - POSTGRES_DB=school
+    volumes:
+      - /home/vadim/Docker/data/postgres
+      - /home/vadim/Docker/data/dump:/db-dump
+    ports:
+      - "5432:5432"
+    networks: 
+      - docker-practice-net 
+
+      
+  redis:
+    image: "redis:alpine"
+    container_name: redis
+    command: redis-server
+    ports:
+     - "6379:6379"
+    environment:
+     - REDIS_REPLICATION_MODE=master
+    networks: 
+     - docker-practice-net
+
+  spring_app:
+    build:
+      context: ./images/app
+      dockerfile: Dockerfile
+    ports:
+    - "8888:8888"
+    network_mode: "host"
+    depends_on:
+      - postgres_db
+      - redis
+    environment:
+      - APP_PATH=/home/vadim/Docker/docker-practice-backend-java
+      
+networks:
+  docker-practice-net:
+    name: docker-practice-net
+
