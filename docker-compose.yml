@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  dockerpractice:
+    image: alpine:3.7
+    build: .
+    command: mvn -jar DockerPracticeJavaApplication.java
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: school
+      POSTGRES_DB: school
+    ports:
+      - 8080:8080
+    networks:
+      - docker-practice-net
+
+networks:
+  docker-practice-net:
+
