@@ -4,7 +4,7 @@ services:
   dockerpractice:
     image: alpine:3.7
     build: .
-    command: mvn -jar DockerPracticeJavaApplication.java
+    command: mvn packege
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: school
