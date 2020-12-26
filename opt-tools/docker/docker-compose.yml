@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+
+  postgres_db:
+    image: postgres
+    restart: always
+
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=school
+      - POSTGRES_DB=school
+
+    volumes:
+      - ../../data/postgres:/var/lib/postgresql/data
+      - ../../data/dump:/db-dump
+
+    ports:
+      - "5432:5432"
+
+    networks:
+      - docker-practice-net
+
+
+  redis:
+    image: "redis:alpine"
+    command: redis-server
+
+    ports:
+      - "6379:6379"
+
+    environment:
+      - REDIS_REPLICATION_MODE=master
+
+    networks:
+      - docker-practice-net
+
+
+networks:
+  docker-practice-net:
+    name: docker-practice-net
