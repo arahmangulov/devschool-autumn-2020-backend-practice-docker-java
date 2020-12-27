@@ -36,6 +36,22 @@ services:
       - docker-practice-net
 
 
+  spring_app:
+
+    build:
+      context: ./images/app
+      dockerfile: Dockerfile
+
+    ports:
+      - "8888:8888"
+
+    network_mode: "host"
+
+    depends_on:
+      - postgres_db
+      - redis
+
+
 networks:
   docker-practice-net:
     name: docker-practice-net
