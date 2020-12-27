@@ -7,10 +7,11 @@ services:
     environment:
       POSTGRES_PASSWORD: school
       POSTGRES_DB: school
+      PGDATA: /var/lib/postgresql/data/pgdata
     ports:
       - 5432:5432
     volumes:
-      - ./data/postgres:/var/lib/postgresql/data/
+      - ./data/postgres:/var/lib/postgresql/data/pgdata
       - ./data/dump:/db-dump
     networks:
       - docker-practice-net
