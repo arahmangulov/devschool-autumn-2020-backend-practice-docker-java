@@ -1,21 +1,8 @@
 version: '3.9'
 services:
-  maven:
-    image: maven:3.6.3-jdk-8
-    command:
-      - mvn spring-boot:start
-    volumes:
-      - ../../:/app
-    networks:
-      - docker-practice-net
-    ports:
-      - 8080:8080
-    depends_on:
-      - postgres
-      - redis
-
   postgres:
     image: postgres:13.1-alpine
+    restart: always
     volumes:
       - ../../data/postgres:/var/lib/postgresql/data
       - ../../data/dump:/db-dump
