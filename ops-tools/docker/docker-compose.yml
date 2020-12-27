@@ -1,5 +1,21 @@
 version: '3.9'
 services:
+  app:
+    build:
+      context: ../../
+      dockerfile: ./ops-tools/docker/images/app/Dockerfile
+    command: sh -c "mvn package; java -jar target/docker-practice-java-0.0.1-SNAPSHOT.jar"
+    volumes:
+      - ../../:/app
+    networks:
+      - docker-practice-net
+    ports:
+      - 8888:8080
+    depends_on:
+      - postgres
+      - redis
+
+
   postgres:
     image: postgres:13.1-alpine
     restart: always
