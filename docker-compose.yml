@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   dockerpractice:
-    build: .
+    build: ./ops-tools/docker/images/app/
     command: java -jar ./target/docker-practice-java-0.0.1-SNAPSHOT.jar
     environment:
       POSTGRES_USER: postgres

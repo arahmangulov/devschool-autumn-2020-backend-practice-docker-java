@@ -1,7 +1,7 @@
 FROM openjdk:11
 
-COPY ./src /usr/src/DockerPracticeJavaApplication/
-COPY pom.xml /usr/src/DockerPracticeJavaApplication/
+COPY ../../../../src /usr/src/DockerPracticeJavaApplication/
+COPY ../../../../pom.xml /usr/src/DockerPracticeJavaApplication/
 
 WORKDIR /usr/src/DockerPracticeJavaApplication
 
