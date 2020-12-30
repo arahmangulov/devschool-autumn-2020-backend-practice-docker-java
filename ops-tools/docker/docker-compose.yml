@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+
+  postgres_db:
+    image: postgres
+    container_name: postgres_db
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres    
+      - POSTGRES_PASSWORD=school
+      - POSTGRES_DB=school
+    volumes:
+      - ../../data/postgres
+      - ../../data/dump:/db-dump
+    ports:
+      - "5432:5432"
+    networks: 
+      - docker-practice-net 
+
+      
+  redis:
+    image: redis:alpine
+    container_name: redis
+    ports:
+     - "6379:6379"
+    networks: 
+     - docker-practice-net
+
+  spring_app:
+    build:
+      context: ./images/app
+      dockerfile: Dockerfile
+    ports:
+    - "8888:8888"
+    depends_on:
+      - postgres_db
+      - redis
+    network_mode: "host"
+      
+
+networks:
+  docker-practice-net:
+
